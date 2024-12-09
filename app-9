@@ -1,0 +1,84 @@
+import React, { useState } from "react";
+
+function App() {
+  const [primes, setPrimes] = useState([]);
+
+  // Function to check if a number is prime
+  const isPrime = (num) => {
+    if (num <= 1) return false;
+    for (let i = 2; i <= Math.sqrt(num); i++) {
+      if (num % i === 0) return false;
+    }
+    return true;
+  };
+
+  // Function to find all prime numbers between 1 and 100
+  const findPrimes = () => {
+    const primeNumbers = [];
+    for (let i = 2; i <= 100; i++) {
+      if (isPrime(i)) {
+        primeNumbers.push(i);
+      }
+    }
+    setPrimes(primeNumbers);
+  };
+
+  return (
+    <div style={styles.container}>
+      <h1 style={styles.header}>Prime Numbers Between 1 and 100</h1>
+      <button onClick={findPrimes} style={styles.button}>
+        Find Primes
+      </button>
+      {primes.length > 0 && (
+        <div style={styles.resultContainer}>
+          <p style={styles.result}>Prime numbers between 1 and 100:</p>
+          <ul style={styles.list}>
+            {primes.map((prime, index) => (
+              <li key={index} style={styles.listItem}>
+                {prime}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    textAlign: "center",
+    fontFamily: "Arial, sans-serif",
+    padding: "20px",
+  },
+  header: {
+    color: "#333",
+  },
+  button: {
+    padding: "10px 20px",
+    fontSize: "16px",
+    backgroundColor: "#007BFF",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
+  resultContainer: {
+    marginTop: "20px",
+  },
+  result: {
+    fontSize: "18px",
+    color: "#007BFF",
+  },
+  list: {
+    listStyleType: "none",
+    padding: "0",
+    fontSize: "16px",
+    color: "#333",
+  },
+  listItem: {
+    padding: "5px 0",
+  },
+};
+
+export default App;
