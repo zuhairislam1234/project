@@ -1,0 +1,87 @@
+import React, { useState } from "react";
+
+function App() {
+  const [input, setInput] = useState("");
+  const [result, setResult] = useState("");
+
+  // Function to count the frequency of each character
+  const countCharacterFrequency = (str) => {
+    const freq = {};
+    for (let char of str) {
+      if (freq[char]) {
+        freq[char] += 1;
+      } else {
+        freq[char] = 1;
+      }
+    }
+    return freq;
+  };
+
+  const handleCount = () => {
+    if (input.trim() === "") {
+      setResult("Please enter a string.");
+    } else {
+      const frequency = countCharacterFrequency(input);
+      setResult(
+        `Character frequencies in "${input}": ${JSON.stringify(frequency)}`
+      );
+    }
+  };
+
+  return (
+    <div style={styles.container}>
+      <h1 style={styles.header}>Character Frequency Counter</h1>
+      <div style={styles.inputContainer}>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Enter a string"
+          style={styles.input}
+        />
+        <button onClick={handleCount} style={styles.button}>
+          Count Frequency
+        </button>
+      </div>
+      {result && <p style={styles.result}>{result}</p>}
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    textAlign: "center",
+    fontFamily: "Arial, sans-serif",
+    padding: "20px",
+  },
+  header: {
+    color: "#333",
+  },
+  inputContainer: {
+    margin: "20px 0",
+  },
+  input: {
+    marginRight: "10px",
+    padding: "10px",
+    fontSize: "16px",
+    width: "300px",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+  },
+  button: {
+    padding: "10px 20px",
+    fontSize: "16px",
+    backgroundColor: "#007BFF",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
+  result: {
+    marginTop: "20px",
+    fontSize: "18px",
+    color: "#007BFF",
+  },
+};
+
+export default App;
