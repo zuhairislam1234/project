@@ -1,0 +1,67 @@
+import React, { useState } from "react";
+import "./App.css";
+
+function App() {
+  const [number, setNumber] = useState("");
+  const [result, setResult] = useState("");
+
+  const checkEvenOdd = () => {
+    if (number === "") {
+      setResult("Please enter a number.");
+    } else {
+      const isEven = parseInt(number, 10) % 2 === 0;
+      setResult(isEven ? `${number} is Even` : `${number} is Odd`);
+    }
+  };
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>Even or Odd Checker</h1>
+        <div style={{ margin: "20px" }}>
+          <input
+            type="number"
+            value={number}
+            onChange={(e) => setNumber(e.target.value)}
+            placeholder="Enter a number"
+            style={{ padding: "10px", fontSize: "16px", width: "200px" }}
+          />
+          <button
+            onClick={checkEvenOdd}
+            style={{
+              marginLeft: "10px",
+              padding: "10px 20px",
+              fontSize: "16px",
+              cursor: "pointer",
+            }}
+          >
+            Check
+          </button>
+        </div>
+        {result && (
+          <div style={{ marginTop: "20px", fontSize: "18px", color: "white" }}>
+            {result}
+          </div>
+        )}
+      </header>
+      <style jsx="true">{`
+        .App {
+          text-align: center;
+        }
+
+        .App-header {
+          background-color: #282c34;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          font-size: calc(10px + 2vmin);
+          color: white;
+        }
+      `}</style>
+    </div>
+  );
+}
+
+export default App;
