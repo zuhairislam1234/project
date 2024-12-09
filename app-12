@@ -1,0 +1,82 @@
+import React, { useState } from "react";
+
+function App() {
+  const [input, setInput] = useState("");
+  const [result, setResult] = useState("");
+
+  // Function to find the largest element in an array
+  const findLargest = (arr) => {
+    return Math.max(...arr);
+  };
+
+  const handleFindLargest = () => {
+    if (input.trim() === "") {
+      setResult("Please enter an array.");
+    } else {
+      const inputArray = input.split(",").map(Number); // Convert input to array of numbers
+      if (inputArray.some(isNaN)) {
+        setResult("Invalid input. Please enter a valid array of numbers.");
+      } else {
+        const largest = findLargest(inputArray);
+        setResult(`The largest element in the array is ${largest}.`);
+      }
+    }
+  };
+
+  return (
+    <div style={styles.container}>
+      <h1 style={styles.header}>Find Largest Element in Array</h1>
+      <div style={styles.inputContainer}>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Enter numbers separated by commas"
+          style={styles.input}
+        />
+        <button onClick={handleFindLargest} style={styles.button}>
+          Find Largest
+        </button>
+      </div>
+      {result && <p style={styles.result}>{result}</p>}
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    textAlign: "center",
+    fontFamily: "Arial, sans-serif",
+    padding: "20px",
+  },
+  header: {
+    color: "#333",
+  },
+  inputContainer: {
+    margin: "20px 0",
+  },
+  input: {
+    marginRight: "10px",
+    padding: "10px",
+    fontSize: "16px",
+    width: "300px",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+  },
+  button: {
+    padding: "10px 20px",
+    fontSize: "16px",
+    backgroundColor: "#007BFF",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
+  result: {
+    marginTop: "20px",
+    fontSize: "18px",
+    color: "#007BFF",
+  },
+};
+
+export default App;
