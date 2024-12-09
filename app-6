@@ -1,0 +1,83 @@
+import React, { useState } from "react";
+
+function App() {
+  const [input, setInput] = useState("");
+  const [result, setResult] = useState("");
+
+  // Function to check if a string is a palindrome
+  const isPalindrome = (str) => {
+    const cleanedString = str.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+    const reversedString = cleanedString.split("").reverse().join("");
+    return cleanedString === reversedString;
+  };
+
+  const handleCheck = () => {
+    if (input.trim() === "") {
+      setResult("Please enter a string.");
+    } else {
+      const palindromeCheck = isPalindrome(input);
+      setResult(
+        palindromeCheck
+          ? `"${input}" is a palindrome!`
+          : `"${input}" is not a palindrome.`
+      );
+    }
+  };
+
+  return (
+    <div style={styles.container}>
+      <h1 style={styles.header}>Palindrome Checker</h1>
+      <div style={styles.inputContainer}>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Enter a string"
+          style={styles.input}
+        />
+        <button onClick={handleCheck} style={styles.button}>
+          Check Palindrome
+        </button>
+      </div>
+      {result && <p style={styles.result}>{result}</p>}
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    textAlign: "center",
+    fontFamily: "Arial, sans-serif",
+    padding: "20px",
+  },
+  header: {
+    color: "#333",
+  },
+  inputContainer: {
+    margin: "20px 0",
+  },
+  input: {
+    marginRight: "10px",
+    padding: "10px",
+    fontSize: "16px",
+    width: "300px",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+  },
+  button: {
+    padding: "10px 20px",
+    fontSize: "16px",
+    backgroundColor: "#007BFF",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
+  result: {
+    marginTop: "20px",
+    fontSize: "18px",
+    color: "#007BFF",
+  },
+};
+
+export default App;
