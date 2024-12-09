@@ -1,0 +1,80 @@
+import React, { useState } from "react";
+
+function App() {
+  const [number, setNumber] = useState("");
+  const [result, setResult] = useState("");
+
+  // Function to reverse the digits of a number
+  const reverseNumber = (num) => {
+    const reversed = Math.abs(num).toString().split("").reverse().join("");
+    return num < 0 ? `-${reversed}` : reversed; // Handle negative numbers
+  };
+
+  const handleReverse = () => {
+    if (number.trim() === "") {
+      setResult("Please enter a number.");
+    } else if (isNaN(number)) {
+      setResult("Invalid input. Please enter a valid number.");
+    } else {
+      const reversed = reverseNumber(parseInt(number, 10));
+      setResult(`The reversed number is ${reversed}`);
+    }
+  };
+
+  return (
+    <div style={styles.container}>
+      <h1 style={styles.header}>Reverse Digits of a Number</h1>
+      <div style={styles.inputContainer}>
+        <input
+          type="text"
+          value={number}
+          onChange={(e) => setNumber(e.target.value)}
+          placeholder="Enter a number"
+          style={styles.input}
+        />
+        <button onClick={handleReverse} style={styles.button}>
+          Reverse
+        </button>
+      </div>
+      {result && <p style={styles.result}>{result}</p>}
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    textAlign: "center",
+    fontFamily: "Arial, sans-serif",
+    padding: "20px",
+  },
+  header: {
+    color: "#333",
+  },
+  inputContainer: {
+    margin: "20px 0",
+  },
+  input: {
+    marginRight: "10px",
+    padding: "10px",
+    fontSize: "16px",
+    width: "300px",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+  },
+  button: {
+    padding: "10px 20px",
+    fontSize: "16px",
+    backgroundColor: "#007BFF",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
+  result: {
+    marginTop: "20px",
+    fontSize: "18px",
+    color: "#007BFF",
+  },
+};
+
+export default App;
