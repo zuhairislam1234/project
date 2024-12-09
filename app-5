@@ -1,0 +1,83 @@
+import React, { useState } from "react";
+
+function App() {
+  const [numbers, setNumbers] = useState("");
+  const [sum, setSum] = useState(null);
+
+  const calculateSum = () => {
+    if (numbers.trim() === "") {
+      setSum("Please enter some numbers.");
+      return;
+    }
+
+    // Convert the input string into an array of numbers
+    const numberArray = numbers.split(",").map((num) => parseFloat(num.trim()));
+
+    // Validate input
+    if (numberArray.some(isNaN)) {
+      setSum("Invalid input. Please enter only numbers separated by commas.");
+      return;
+    }
+
+    // Calculate the sum
+    const total = numberArray.reduce((acc, num) => acc + num, 0);
+    setSum(`The sum of the numbers is ${total}`);
+  };
+
+  return (
+    <div style={styles.container}>
+      <h1 style={styles.header}>Sum of Array Numbers</h1>
+      <div style={styles.inputContainer}>
+        <input
+          type="text"
+          value={numbers}
+          onChange={(e) => setNumbers(e.target.value)}
+          placeholder="Enter numbers separated by commas"
+          style={styles.input}
+        />
+        <button onClick={calculateSum} style={styles.button}>
+          Calculate Sum
+        </button>
+      </div>
+      {sum !== null && <p style={styles.result}>{sum}</p>}
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    textAlign: "center",
+    fontFamily: "Arial, sans-serif",
+    padding: "20px",
+  },
+  header: {
+    color: "#333",
+  },
+  inputContainer: {
+    margin: "20px 0",
+  },
+  input: {
+    marginRight: "10px",
+    padding: "10px",
+    fontSize: "16px",
+    width: "300px",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+  },
+  button: {
+    padding: "10px 20px",
+    fontSize: "16px",
+    backgroundColor: "#007BFF",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
+  result: {
+    marginTop: "20px",
+    fontSize: "18px",
+    color: "#007BFF",
+  },
+};
+
+export default App;
