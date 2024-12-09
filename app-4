@@ -1,0 +1,80 @@
+import React, { useState } from "react";
+
+function App() {
+  const [number, setNumber] = useState("");
+  const [result, setResult] = useState("");
+
+  // Recursive function to calculate factorial
+  const calculateFactorial = (n) => {
+    if (n < 0) return -1; // Invalid for negative numbers
+    if (n === 0 || n === 1) return 1; // Base case
+    return n * calculateFactorial(n - 1);
+  };
+
+  const handleCalculate = () => {
+    const num = parseInt(number, 10);
+    if (isNaN(num) || num < 0) {
+      setResult("Please enter a non-negative integer.");
+    } else {
+      const factorial = calculateFactorial(num);
+      setResult(`Factorial of ${num} is ${factorial}`);
+    }
+  };
+
+  return (
+    <div style={styles.container}>
+      <h1 style={styles.header}>Factorial Calculator</h1>
+      <div style={styles.inputContainer}>
+        <input
+          type="number"
+          value={number}
+          onChange={(e) => setNumber(e.target.value)}
+          placeholder="Enter a number"
+          style={styles.input}
+        />
+        <button onClick={handleCalculate} style={styles.button}>
+          Calculate Factorial
+        </button>
+      </div>
+      {result && <p style={styles.result}>{result}</p>}
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    textAlign: "center",
+    fontFamily: "Arial, sans-serif",
+    padding: "20px",
+  },
+  header: {
+    color: "#333",
+  },
+  inputContainer: {
+    margin: "20px 0",
+  },
+  input: {
+    marginRight: "10px",
+    padding: "10px",
+    fontSize: "16px",
+    width: "200px",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+  },
+  button: {
+    padding: "10px 20px",
+    fontSize: "16px",
+    backgroundColor: "#007BFF",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
+  result: {
+    marginTop: "20px",
+    fontSize: "18px",
+    color: "#007BFF",
+  },
+};
+
+export default App;
